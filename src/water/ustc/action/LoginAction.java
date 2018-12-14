@@ -1,5 +1,8 @@
 package water.ustc.action;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import sc.ustc.bean.ActionBean;
 import water.ustc.dao.AccountDaoTool;
 
 import javax.servlet.ServletException;
@@ -10,21 +13,24 @@ import java.io.IOException;
 import java.util.List;
 
 public class LoginAction {
-    public String handleLogin(HttpServletRequest request, HttpServletResponse response)
+    private static Logger logger = LogManager.getLogger(LoginAction.class.getName());
+
+    public String handleLogin(HttpServletRequest request, HttpServletResponse response, ActionBean actionBean)
             throws ServletException, IOException {
-        System.out.println("LoginRequest"+request.getPathInfo());
+        logger.info("LoginRequest>>>>>>>>>>>>>>>>>>>>>>>>>>"+request.getPathInfo());
         String account = request.getParameter("account");
         String password = request.getParameter("password");
+        logger.info("LoginRequest其他信息>>>>>>>>>>>>>>>>>>>>>>>>>>"+account+password);
         AccountDaoTool loginDao = new AccountDaoTool();
         HttpSession session = request.getSession();
         List<List<String>> list = loginDao.queryAccount(account,password);
         if(list != null && !list.isEmpty()){
             session.setAttribute("account" , account);
-            System.out.println("LoginSession>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("account"));
+            logger.info("LoginSession>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("account"));
             return "success";
         }else{
             session.setAttribute("loginMessage","您的账户或者密码错了！！");
-            System.out.println("LoginSession>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("loginMessage"));
+            logger.info("LoginSession>>>>>>>>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("loginMessage"));
             return "failure";
         }
     }

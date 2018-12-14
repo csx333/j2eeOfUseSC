@@ -1,5 +1,8 @@
 package water.ustc.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,7 @@ public class AccountDaoTool {
 
     static final String USER = "root";
     static final String PASSWORD = "123456";
+    private static Logger logger = LogManager.getLogger(AccountDaoTool.class.getName());
 
     public List<List<String>> queryAccount(String account, String password) {
         String sql = "select * from com.useraccount where name = ? and password = ?";
@@ -32,13 +36,13 @@ public class AccountDaoTool {
         List<List<String>> listList = new ArrayList();
         List<String> list = new ArrayList();
         try {
-            System.out.println("查询数据库中>>>>>>>>>>>>>>>>>>>>");
+            logger.info("查询数据库中>>>>>>>>>>>>>>>>>>>>");
             conn= connectMySQL();
             // 创建prepareStatement
             ps = conn.prepareStatement(sql);
             ps.setString(1, account);
             ps.setString(2, password);
-            System.out.println("查询数据库中>>>>>>>>>>>>>>>>>>>>"+account + password);
+            logger.info("查询数据库中>>>>>>>>>>>>>>>>>>>>"+account+"   " + password);
             // 执行操作
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -73,7 +77,7 @@ public class AccountDaoTool {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
-            System.out.println("插入数据库中>>>>>>>>>>>>>>>>>>>>"+account+password);
+            logger.info("插入数据库中>>>>>>>>>>>>>>>>>>>>"+account+password);
             conn= connectMySQL();
             // 创建prepareStatement
             ps = conn.prepareStatement(sql);
@@ -100,9 +104,9 @@ public class AccountDaoTool {
     private Connection connectMySQL() throws ClassNotFoundException,SQLException{
         Connection conn = null;
         Class.forName(JDBC_DRIVER);
-        System.out.println("驱动加载成功");
+        logger.info("驱动加载成功");
         conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-        System.out.println("连接成功");
+        logger.info("连接成功");
         return conn;
     }
 

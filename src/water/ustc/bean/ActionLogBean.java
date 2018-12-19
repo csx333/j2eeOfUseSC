@@ -1,17 +1,17 @@
-package water.ustc.tools;
+package water.ustc.bean;
 
-public class ActionLog {
-    private String name;
+public class ActionLogBean {
+    private String actionName;
     private String startTime;
     private String endTime;
     private String result;
 
-    public String getName() {
-        return name;
+    public String getActionName() {
+        return actionName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
     }
 
     public String getStartTime() {

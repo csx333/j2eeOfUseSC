@@ -13,12 +13,12 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<body>
-<div>
-    尊敬的${sessionScope.account }，您好！
-</div>
-<div>
-    <a href="/UseSC/pages/login.jsp">退出账户</a>
-</div>
-</body>
+    <body>
+        <div>
+            尊敬的${sessionScope.account }，您好！
+        </div>
+        <div>
+            <a href="/UseSC/pages/login.jsp">退出账户</a>
+        </div>
+    </body>
 </html>

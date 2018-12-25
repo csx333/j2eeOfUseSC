@@ -15,10 +15,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class AddLogInfoToXml {
-
     private static Logger logger = LogManager.getLogger(AddLogInfoToXml.class.getName());
-
-    public static void parseXml(String name,String sTime,String eTime,String result,File file) throws DocumentException, IOException {
+    public static void parseXml(String name,String sTime,String eTime,String result,File file)
+            throws DocumentException, IOException {
         Document document = null;
         Element root = null;
         if(file.exists()){

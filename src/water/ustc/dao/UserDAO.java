@@ -22,29 +22,40 @@ public class UserDAO extends BaseDAO{
     PreparedStatement ps=null;
     private static Logger logger = LogManager.getLogger(UserDAO.class.getName());
     private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-
     private final String DB_URL = "jdbc:mysql://localhost:3306/com?useUnicode=true&"
             + "characterEncoding=utf8&useSSL=false&serverTimezone=UTC"
             + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false";
     private final String USER = "root";
     private final String PASSWORD = "123456";
-    AccountBean accountBean = null;
 
+    private final String JDBC_DRIVERSQLITE = "org.sqlite.JDBC";
+    private final String DB_URLSQLLITE = "jdbc:sqlite:C:\\Users\\csx14\\com.db";
+    private final String USERSQLLITE = null;
+    private final String PASSWORDSQLLITE = null;
+
+    AccountBean accountBean = null;
+    /**
+     * @Description :初始化数据库
+     * @param ：
+     * @Return : void
+     * @Author : csx
+     * @Date : 2018/12/23 21:14
+     */
     public void initDataBase()throws ClassNotFoundException, SQLException{
-        setDriver(JDBC_DRIVER);
-        setUrl(DB_URL);
-        setUserName(USER);
-        setUserPassword(PASSWORD);
+        setDriver(JDBC_DRIVERSQLITE);
+        setUrl(DB_URLSQLLITE);
+        setUserName(USERSQLLITE);
+        setUserPassword(PASSWORDSQLLITE);
         conn= openDBConnection();
     }
     @Override
     public  Object query(String sql){
         try {
             logger.info("查询数据库中>>>>>>>>>>>>>>>>>>>>");
-            // 创建prepareStatement
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
+                //数据在存在记录构建一个新对象返回
                 accountBean = new AccountBean();
                 accountBean.setUserName(rs.getString("name"));
                 accountBean.setUserPassword(rs.getString("password"));
